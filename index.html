@@ -1,53 +1,232 @@
 <!DOCTYPE html>
-<html lang="de">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intqam-alsalatin</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Time Calculator</title>
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8735908302899057" crossorigin="anonymous"></script>
+
+    <style>
+        /* ─── GLOBAL STYLES ─────────────────────────────────────────────── */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+
+        :root {
+            --bg: #f5f5f5;
+            --text: #222;
+            --card: #ffffff;
+            --field: #ffffff;
+            --border: #ddd;
+        }
+        [data-theme="dark"] {
+            --bg: #1e1e1e;
+            --text: #eaeaea;
+            --card: #2b2b2b;
+            --field: #3b3b3b;
+            --border: #555;
+        }
+
+        .container {
+            max-width: 550px;
+            background: var(--card);
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.15);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .image-box {
+            width: 100%;
+            height: 200px; /* Bildhöhe */
+            background: url('/ِAboQasim.png') no-repeat center center;
+            background-size: cover; /* Bild skaliert, um die gesamte Fläche zu decken */
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        input[type="number"] {
+            width: 120px;
+            padding: 6px;
+            background: var(--field);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 16px;
+            background: #4a7dfa;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #3a63d9;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Werbung Boxen (Google AdSense) */
+        .ads-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Toggle Dark Mode */
+        .toggle-darkmode {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <img src="AboQasim.png" alt="Logo" class="logo">
-            <h1>Willkommen bei Intqam-alsalatin</h1>
-        </header>
 
-        <section class="calculator">
-            <h2>Stunden berechnen</h2>
-            <div class="inputs">
-                <label for="minutes-5">5 Minuten:</label>
-                <input type="number" id="minutes-5" class="input-field" value="0">
-                <label for="minutes-15">15 Minuten:</label>
-                <input type="number" id="minutes-15" class="input-field" value="0">
-                <label for="minutes-30">30 Minuten:</label>
-                <input type="number" id="minutes-30" class="input-field" value="0">
-                <label for="hour-1">1 Stunde:</label>
-                <input type="number" id="hour-1" class="input-field" value="0">
-                <label for="hour-2">2 Stunden:</label>
-                <input type="number" id="hour-2" class="input-field" value="0">
-                <label for="hour-8">8 Stunden:</label>
-                <input type="number" id="hour-8" class="input-field" value="0">
-                <label for="hour-12">12 Stunden:</label>
-                <input type="number" id="hour-12" class="input-field" value="0">
-                <label for="hour-24">24 Stunden:</label>
-                <input type="number" id="hour-24" class="input-field" value="0">
-            </div>
-            <button id="calculate" class="btn">Berechnen</button>
-            <div class="result">
-                <h3>Ergebnis:</h3>
-                <p id="total-hours">0 Stunden</p>
-            </div>
-        </section>
-
-        <footer>
-            <p>&copy; 2025 Intqam-alsalatin. Alle Rechte vorbehalten.</p>
-        </footer>
+<div class="container">
+    <div class="toggle-darkmode">
+        <label>
+            <input type="checkbox" id="darkToggle"> Dark Mode
+        </label>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <h2>Time Calculator</h2>
 
+    <!-- Hier wird das Bild angezeigt -->
+    <div class="image-box" id="bild"></div>
+
+    <!-- Eingabefelder -->
+    <div class="row"><label>5 Minutes:</label> <input id="m5" type="number" min="0"></div>
+    <div class="row"><label>15 Minutes:</label> <input id="m15" type="number" min="0"></div>
+    <div class="row"><label>30 Minutes:</label> <input id="m30" type="number" min="0"></div>
+    <div class="row"><label>1 Hour:</label> <input id="h1" type="number" min="0"></div>
+    <div class="row"><label>2 Hours:</label> <input id="h2" type="number" min="0"></div>
+    <div class="row"><label>8 Hours:</label> <input id="h8" type="number" min="0"></div>
+    <div class="row"><label>12 Hours:</label> <input id="h12" type="number" min="0"></div>
+    <div class="row"><label>24 Hours:</label> <input id="h24" type="number" min="0"></div>
+
+    <!-- Berechnungs-Ergebnis -->
+    <div id="result"></div>
+
+    <!-- Werbung unter dem Ergebnis -->
+    <div class="ads-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8735908302899057"  <!-- Deine AdSense-ID hier einfügen -->
+             data-ad-slot="XXXXXXX"                    <!-- Deinen AdSlot hier einfügen -->
+             data-ad-format="auto"></ins>
+    </div>
+</div>
+
+<script>
+// Sicherstellen, dass die Berechnungen wie zuvor durchgeführt werden
+const f_m5  = document.getElementById("m5");
+const f_m15 = document.getElementById("m15");
+const f_m30 = document.getElementById("m30");
+const f_h1  = document.getElementById("h1");
+const f_h2  = document.getElementById("h2");
+const f_h8  = document.getElementById("h8");
+const f_h12 = document.getElementById("h12");
+const f_h24 = document.getElementById("h24");
+
+const fields = [f_m5, f_m15, f_m30, f_h1, f_h2, f_h8, f_h12, f_h24];
+
+// Live-Berechnung aktivieren
+fields.forEach(f => f.addEventListener("input", calc));
+
+// Werte laden
+window.onload = () => {
+    fields.forEach(f => {
+        let saved = localStorage.getItem(f.id);
+        if (saved !== null) f.value = saved;
+    });
+    calc();
+};
+
+function calc() {
+    let totalHours =
+        (parseInt(f_m5.value)  || 0) * (5/60)  +
+        (parseInt(f_m15.value) || 0) * (15/60) +
+        (parseInt(f_m30.value) || 0) * (30/60) +
+        (parseInt(f_h1.value)  || 0) * 1       +
+        (parseInt(f_h2.value)  || 0) * 2       +
+        (parseInt(f_h8.value)  || 0) * 8       +
+        (parseInt(f_h12.value) || 0) * 12      +
+        (parseInt(f_h24.value) || 0) * 24;
+
+    let h = Math.floor(totalHours);
+    let m = Math.round((totalHours - h) * 60);
+
+    let d = Math.floor(totalHours / 24);
+    let rh = Math.floor(totalHours % 24);
+
+    document.getElementById("result").innerHTML = `
+        Total time: ${totalHours.toFixed(2)} hours<br>
+        → ${h} hours, ${m} minutes<br>
+        → ${d} days, ${rh} hours, ${m} minutes
+    `;
+
+    fields.forEach(f => localStorage.setItem(f.id, f.value));
+}
+
+// ─────────────────────────────────────────────
+//                 DARK MODE
+// ─────────────────────────────────────────────
+const darkToggle = document.getElementById("darkToggle");
+darkToggle.addEventListener("change", () => {
+    if (darkToggle.checked) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+    } else {
+        document.documentElement.setAttribute("data-theme", "light");
+        localStorage.setItem("theme", "light");
+    }
+});
+
+// gespeicherten Theme laden
+if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    darkToggle.checked = true;
+}
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+</body>
 </html>
